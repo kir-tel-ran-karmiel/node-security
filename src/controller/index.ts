@@ -1,5 +1,6 @@
 import "dotenv/config"; // only for development
 import accountingService from "../services/AccountingServiceMap.ts";
+import { launchServer } from "../server.ts";
 
 
 accountingService.signUp("vasya1234", "12345.com", "USER");
@@ -14,3 +15,5 @@ const tokenKolya = accountingService.signIn("kolya1234", "12345.com");
 console.log("token for Vasya", tokenVasya);
 console.log("token for Kolya", tokenKolya);
 console.log((accountingService as any).getAccounts());
+
+launchServer();
