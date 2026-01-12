@@ -1,18 +1,16 @@
 import "dotenv/config"; // only for development
-import JwtUtil from "../security/JwtUtil.ts"
-import { JwtPayload } from "jsonwebtoken";
+import accountingService from "../services/AccountingServiceMap.ts";
 
 
-const token = JwtUtil.getJwt("vasya12345", "USER");
-setTimeout(() => verificationToken(token), 60000)
+accountingService.signUp("vasya1234", "12345.com", "USER");
+accountingService.signUp("petya1234", "12345.com", "USER");
+accountingService.signUp("vova1234", "12345.com", "USER");
+accountingService.signUp("kolya1234", "12345.com", "ADMIN");
 
-function verificationToken(token: string) {
-    try {
-        const payload: JwtPayload = JwtUtil.verifyToken(token);
-        console.log(payload);
-    } catch (error) {
-        console.log(error.name);
-        console.log(error.message);
-    }
-}
-
+console.time("Sign in process");
+const tokenVasya = accountingService.signIn("vasya1234", "12345.com");
+console.timeEnd("Sign in process");
+const tokenKolya = accountingService.signIn("kolya1234", "12345.com");
+console.log("token for Vasya", tokenVasya);
+console.log("token for Kolya", tokenKolya);
+console.log((accountingService as any).getAccounts());

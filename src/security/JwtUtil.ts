@@ -8,7 +8,6 @@ export default class JwtUtil {
             { role },
             process.env.JWT_SECRET,
             { subject: username, expiresIn },
-
         )
     }
 
